@@ -1,20 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
+const productController_1 = require("../controllers/productController");
 const productRouter = (0, express_1.Router)();
-productRouter.get('/', (req, res) => {
-    res.send('Get a list of products');
-});
-productRouter.get('/:id', (req, res) => {
-    res.send(`Get the product ${req.params.id}`);
-});
-productRouter.post('/', (req, res) => {
-    res.send(`Create a new product with ID: ${req.body.id}`);
-});
-productRouter.patch('/:id', (req, res) => {
-    res.send(`Update the product ${req.params.id} with the values of ${req.body.name}, ${req.body.price} and ${req.body.stock}`);
-});
-productRouter.delete('/', (req, res) => {
-    res.send(`Deleting the product ${req.body.id}`);
-});
+productRouter.get('/', productController_1.getAllProducts);
+productRouter.get('/:id', productController_1.getProductById);
+productRouter.post('/', productController_1.createProduct);
+productRouter.patch('/:id', productController_1.modifyProduct);
+productRouter.delete('/', productController_1.deleteProduct);
 exports.default = productRouter;
