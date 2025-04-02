@@ -53,7 +53,7 @@ export const getAllProducts: RequestHandler = (req: Request, res: Response) => {
 
 // Find a single Product with an id
 export const getProductById: RequestHandler = (req: Request, res: Response) => {
-  Product.findByPk()
+  Product.findByPk(req.params.id)
     .then((data: Product | null) => {
       res.status(200).json({
         status: "Success",

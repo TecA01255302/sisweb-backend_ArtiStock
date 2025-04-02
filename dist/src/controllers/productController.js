@@ -62,7 +62,7 @@ const getAllProducts = (req, res) => {
 exports.getAllProducts = getAllProducts;
 // Find a single Product with an id
 const getProductById = (req, res) => {
-    product_1.Product.findByPk()
+    product_1.Product.findByPk(req.params.id)
         .then((data) => {
         res.status(200).json({
             status: "Success",
