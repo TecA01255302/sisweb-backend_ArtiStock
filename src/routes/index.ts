@@ -1,5 +1,6 @@
 import { Router, Request, Response } from 'express';
 import productRoutes from './productRoutes';
+<<<<<<< HEAD
 import userRoutes from './userRoutes';
 import tagRoutes from './tagRoutes';
 
@@ -17,4 +18,14 @@ apiRouter.get('/', (req: Request, res: Response) => {
 })
 
 // Exportar el API del router.
+=======
+
+const apiRouter:Router = Router();
+
+apiRouter.use('/product', productRoutes);
+apiRouter.get('/', (req:Request, res: Response) => {
+    res.send('Hello World!')
+})
+
+>>>>>>> a9bca52fd14f199076c0976eaa1302b506490727
 export default apiRouter;
