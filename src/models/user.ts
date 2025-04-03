@@ -1,47 +1,48 @@
-import {Table, Model, Column, CreatedAt, UpdatedAt, DataType, HasMany} from 'sequelize-typescript';
-import {Optional} from 'sequelize';
-import {Product} from './product'
+import { Table, Model, Column, CreatedAt, UpdatedAt, DataType, HasMany } from 'sequelize-typescript';
+import { Optional } from 'sequelize';
+import { Product } from './product'
 
-interface UserAttributes{
+// Interfaz con las propiedades de la tabla Users.
+interface UserAttributes {
   id: number;
   name: string;
   email: string;
-  password: string ;
-  profilePic: string ; //guardara la direccion
-  image: string; 
+  password: string;
+  profilePic: string;  //Contiene la dirección de la imagen del perfil del usuario.
 }
 
-interface UserCreationAttributes extends Optional<UserAttributes, 'id'>{}
+// El ID es un valor opcional a ingresar.
+interface UserCreationAttributes extends Optional<UserAttributes, 'id'> { }
 
-@Table ({
+// Crear la tabla Users.
+@Table({
   tableName: "Users"
 })
-export class User extends Model<UserAttributes, UserCreationAttributes>{
- 
-    //Primary key is added as auto-increment by sequilize
+export class User extends Model<UserAttributes, UserCreationAttributes> {
 
-   @Column
-   name!: string;
+  // La llave primaria es el ID, auto incrementado por Sequelize.
 
-   @Column
-   email!: string;
+  @Column
+  name!: string;        // Nombre del usuario.
 
-   @Column
-   password!: string;
+  @Column
+  email!: string;       // Email.
 
-   @Column
-   //Podriamos agregar default a una ruta usando @Default("ruta/img algo nose")
-   profilePic?: string;
+  @Column
+  password!: string;    // Contraseña.
 
-   @CreatedAt
-   @Column
-   createdAt!: Date;
+  @Column
+  profilePic?: string;  // Imagen de perfil ("../img/algo.jpg").
 
-   @UpdatedAt
-   @Column
-   updatedAt!: Date;
+  @CreatedAt
+  @Column
+  createdAt!: Date;     // Fecha de creación del usuario.
 
-   //Realacion muchos a uno con Product
-   @HasMany(()=>Product)
-   products!:Product[];
+  @UpdatedAt
+  @Column
+  updatedAt!: Date;    // Fecha de actualización del usuario.
+
+  //Relación muchos a uno con Product.
+  @HasMany(() => Product)
+  products!: Product[];
 }

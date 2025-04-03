@@ -1,13 +1,13 @@
 import { RequestHandler, Request, Response } from "express";
 import { User } from "../models/user";
 
-// Create and Save a new Product
+// Crear un nuevo usuario.
 export const createUser: RequestHandler = (req: Request, res: Response) => {
-  //Validate request
+  // Verificar que la solicitud sea válida.
   if (!req.body) {
     res.status(400).json({
-      status: "error",
-      message: "Content can not be empty",
+      status: "Error",
+      message: "El contenido no puede estar vacío.",
       payload: null,
     });
     return;
@@ -18,100 +18,100 @@ export const createUser: RequestHandler = (req: Request, res: Response) => {
   User.create(user)
     .then((data: User | null) => {
       res.status(200).json({
-        status: "Success",
-        message: "User successfully created",
+        status: "Éxito",
+        message: "Usuario creado exitosamente.",
         payload: data,
       });
     })
     .catch((err) => {
       res.status(500).json({
         status: "error",
-        message: "Something is wrong" + err.message,
+        message: "Algo salió mal al crear el usuario: " + err.message,
         payload: null,
       });
     });
 };
 
-// Retrieve all Products from the database.
+// Buscar a todos los usuarios.
 export const getAllUsers: RequestHandler = (req: Request, res: Response) => {
   User.findAll()
     .then((data: User[]) => {
       res.status(200).json({
-        status: "Success",
-        message: "User successfully retrieved",
+        status: "Éxito",
+        message: "Usuario encontrado existosamente.",
         payload: data,
       });
     })
     .catch((err) => {
       res.status(500).json({
-        status: "error",
-        message: "Something is wrong retrieving" + err.message,
+        status: "Error",
+        message: "Algo salió mal al buscar el usuario: " + err.message,
         payload: null,
       });
     });
 };
 
-// Find a single Product with an id
+// Buscar a un usuario por su ID.
 export const getUserById: RequestHandler = (req: Request, res: Response) => {
   User.findByPk(req.params.id)
     .then((data: User | null) => {
       res.status(200).json({
-        status: "Success",
-        message: "User successfully retrieved",
+        status: "Éxito",
+        message: "Usuario encontrado existosamente.",
         payload: data,
       });
     })
     .catch((err) => {
       res.status(500).json({
-        status: "error",
-        message: "Something is wrong retrieving" + err.message,
+        status: "Error",
+        message: "Algo salió al buscar el usuario: " + err.message,
         payload: null,
       });
     });
 };
 
-// Update a Product by the id in the request
+// Actualizar la información de un usuario.
 export const modifyUser: RequestHandler = async (
   req: Request,
   res: Response
 ) => {
-  //Validate request
+  // Verificar que la solicitud sea válida.
   if (!req.body) {
     res.status(400).json({
-      status: "error",
-      message: "Content can not be empty",
+      status: "Error",
+      message: "El contenido no puede estar vacío.",
       payload: null,
     });
     return;
   }
 
-  //Guardar en db
+  //Guardar en db.
   User.update({ ...req.body }, { where: { id: req.params.id } })
-    .then((isUpdated) => {
-      if (isUpdated) {
+    .then((actualizado) => {
+      if (actualizado) {
         res.status(200).json({
-          status: "Success",
-          message: "User successfully updated",
+          status: "Éxito",
+          message: "Usuario actualizado exitosamente.",
           payload: { ...req.body },
         });
       } else {
         res.status(500).json({
-          status: "error",
-          message: "Something is wrong updating",
+          status: "Error",
+          message: "Algo salió mal al actualizar el usuario.",
           payload: null,
         });
       }
     })
     .catch((err) => {
       res.status(500).json({
-        status: "error",
-        message: "Something is wrong updating" + err.message,
+        status: "Error",
+        message: "Algo salió mal al actualizar el usuario: " + err.message,
         payload: null,
       });
     });
 };
 
-// Delete a Product with the specified id in the request
+// Eliminar a un usuario, especificando su ID.
 export const deleteUser: RequestHandler = async (
   req: Request,
   res: Response
@@ -119,10 +119,10 @@ export const deleteUser: RequestHandler = async (
   const { id } = req.body;
   try {
     await User.destroy({ where: { id } });
-    res.status(200).json({ message: "User deleted" });
+    res.status(200).json({ message: "Usuario eliminado." });
   } catch (error) {
     res.status(500).json({
-      message: "Error deleting user",
+      message: "Hubo un error al eliminar el usuario.",
       error,
     });
   }

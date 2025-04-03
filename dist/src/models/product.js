@@ -12,6 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Product = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
 const user_1 = require("./user");
+const tag_product_1 = require("./tag_product");
+// Crear la tabla Products.
 let Product = class Product extends sequelize_typescript_1.Model {
 };
 exports.Product = Product;
@@ -56,6 +58,10 @@ __decorate([
     (0, sequelize_typescript_1.BelongsTo)(() => user_1.User),
     __metadata("design:type", user_1.User)
 ], Product.prototype, "user", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasMany)(() => tag_product_1.Tag_Product),
+    __metadata("design:type", Array)
+], Product.prototype, "products", void 0);
 exports.Product = Product = __decorate([
     (0, sequelize_typescript_1.Table)({
         tableName: "Products"

@@ -12,15 +12,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_typescript_1 = require("sequelize-typescript");
 const product_1 = require("../models/product");
 const user_1 = require("../models/user");
+const tag_1 = require("../models/tag");
+const tag_product_1 = require("../models/tag_product");
 const connection = new sequelize_typescript_1.Sequelize({
     database: 'artistock_db',
     dialect: 'mysql',
     username: 'artistock_user',
     password: 'artistock2608',
     storage: ':memory:',
-    models: [
-        product_1.Product, user_1.User
-    ]
+    models: [product_1.Product, user_1.User, tag_1.Tag, tag_product_1.Tag_Product]
 });
 function connectionDB() {
     return __awaiter(this, void 0, void 0, function* () {

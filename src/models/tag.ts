@@ -1,25 +1,27 @@
-import {Table, Model, Column, DataType, ForeignKey, HasMany} from 'sequelize-typescript';
-import {Optional} from 'sequelize';
-import {tag_product} from './tag_product'
+import { Table, Model, Column, DataType, ForeignKey, HasMany } from 'sequelize-typescript';
+import { Optional } from 'sequelize';
+import { Tag_Product } from './tag_product'
 
-interface TagAttributes{
+// Interfaz con las propiedades de la tabla Tags.
+interface TagAttributes {
   id: number;
   name: string;
 }
 
-interface TagCreationAttributes extends Optional<TagAttributes, 'id'>{}
+// El ID es un valor opcional a ingresar.
+interface TagCreationAttributes extends Optional<TagAttributes, 'id'> { }
 
-@Table ({
+// Creación de la tabla Tags.
+@Table({
   tableName: "Tags"
 })
-export class Tag extends Model<TagAttributes, TagCreationAttributes>{
+export class Tag extends Model<TagAttributes, TagCreationAttributes> {
 
-  // Here, TS infers Data Type from the JS Type
-  // The ! means that the variable name wont be null or undefine. 
-   @Column
-   name!: string;
+  // Nombre (palabra clave) del tag (categoría).
+  @Column
+  name!: string;
 
-   //relación de muchos a uno con tag_product
-   @HasMany(()=>tag_product)
-      products!:tag_product[];
+  //Relación de muchos a uno con Tag_Product
+  @HasMany(() => Tag_Product)
+  products!: Tag_Product[];
 }

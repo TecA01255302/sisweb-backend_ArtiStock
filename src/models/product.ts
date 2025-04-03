@@ -1,61 +1,62 @@
 import {Table, Model, Column, CreatedAt, UpdatedAt, DataType, ForeignKey, BelongsTo, HasMany} from 'sequelize-typescript';
 import {Optional} from 'sequelize';
 import {User} from './user'
-import { tag_product } from './tag_product';
+import { Tag_Product } from './tag_product';
 
+// Intefaz con las propiedades de la tabla Products.
 interface ProductAttributes{
   id: number;
   title: string;
   description: string;
   price: number ;
   stock: number ;
-  image: string; //guardara la direccion
+  image: string; // Contiene la dirección de la imagen del producto.
 }
 
+// El ID es un valor opcional a ingresar.
 interface ProductCreationAttributes extends Optional<ProductAttributes, 'id'>{}
 
+// Crear la tabla Products.
 @Table ({
   tableName: "Products"
 })
 export class Product extends Model<ProductAttributes, ProductCreationAttributes>{
+  // La llave primaria es el ID, auto incrementado por Sequelize.
 
-  // Here, TS infers Data Type from the JS Type
-  // The ! means that the variable title wont be null or undefine. 
    @Column
-   title!: string;
+   title!: string;    // Título del producto.
 
-  // Here, we set the Data Type explicity
-  // The ? means the variable can be null or undefined
-   @Column({
+  // La descripción del producto es opcional.
+  @Column({
       type: DataType.STRING
    })
    description?: string;
 
    @Column
-   price!: number;
+   price!: number;    // Precio del producto.
 
    @Column
-   stock!: number;
+   stock!: number;    // Cantidad de productos en stock.
 
    @Column
-   image?: string;
+   image?: string;    // Ruta de la imagen del producto.
 
    @CreatedAt
    @Column
-   createdAt!: Date;
+   createdAt!: Date;  // Fecha de creación del producto.
 
    @UpdatedAt
    @Column
-   updatedAt!: Date;
+   updatedAt!: Date;  // Fecha de actualización del producto.
 
-   //Relacion muchos a uno con User
+   //Relación muchos a uno (N:1) con User.
    @ForeignKey(()=> User)
    @Column
    userId!:number;
    @BelongsTo(()=>User)
    user!: User;
 
-   //relación de muchos a uno con tag_product
-    @HasMany(()=>tag_product)
-        products!:tag_product[];
+   //Relación de muchos a uno con Tag_Product
+    @HasMany(()=>Tag_Product)
+    products!:Tag_Product[];
 }

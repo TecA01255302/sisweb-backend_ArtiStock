@@ -11,13 +11,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteUser = exports.modifyUser = exports.getUserById = exports.getAllUsers = exports.createUser = void 0;
 const user_1 = require("../models/user");
-// Create and Save a new Product
+// Crear un nuevo usuario.
 const createUser = (req, res) => {
-    //Validate request
+    // Verificar que la solicitud sea válida.
     if (!req.body) {
         res.status(400).json({
-            status: "error",
-            message: "Content can not be empty",
+            status: "Error",
+            message: "El contenido no puede estar vacío.",
             payload: null,
         });
         return;
@@ -27,106 +27,106 @@ const createUser = (req, res) => {
     user_1.User.create(user)
         .then((data) => {
         res.status(200).json({
-            status: "Success",
-            message: "User successfully created",
+            status: "Éxito",
+            message: "Usuario creado exitosamente.",
             payload: data,
         });
     })
         .catch((err) => {
         res.status(500).json({
             status: "error",
-            message: "Something is wrong" + err.message,
+            message: "Algo salió mal al crear el usuario: " + err.message,
             payload: null,
         });
     });
 };
 exports.createUser = createUser;
-// Retrieve all Products from the database.
+// Buscar a todos los usuarios.
 const getAllUsers = (req, res) => {
     user_1.User.findAll()
         .then((data) => {
         res.status(200).json({
-            status: "Success",
-            message: "User successfully retrieved",
+            status: "Éxito",
+            message: "Usuario encontrado existosamente.",
             payload: data,
         });
     })
         .catch((err) => {
         res.status(500).json({
-            status: "error",
-            message: "Something is wrong retrieving" + err.message,
+            status: "Error",
+            message: "Algo salió mal al buscar el usuario: " + err.message,
             payload: null,
         });
     });
 };
 exports.getAllUsers = getAllUsers;
-// Find a single Product with an id
+// Buscar a un usuario por su ID.
 const getUserById = (req, res) => {
     user_1.User.findByPk(req.params.id)
         .then((data) => {
         res.status(200).json({
-            status: "Success",
-            message: "User successfully retrieved",
+            status: "Éxito",
+            message: "Usuario encontrado existosamente.",
             payload: data,
         });
     })
         .catch((err) => {
         res.status(500).json({
-            status: "error",
-            message: "Something is wrong retrieving" + err.message,
+            status: "Error",
+            message: "Algo salió al buscar el usuario: " + err.message,
             payload: null,
         });
     });
 };
 exports.getUserById = getUserById;
-// Update a Product by the id in the request
+// Actualizar la información de un usuario.
 const modifyUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    //Validate request
+    // Verificar que la solicitud sea válida.
     if (!req.body) {
         res.status(400).json({
-            status: "error",
-            message: "Content can not be empty",
+            status: "Error",
+            message: "El contenido no puede estar vacío.",
             payload: null,
         });
         return;
     }
-    //Guardar en db
+    //Guardar en db.
     user_1.User.update(Object.assign({}, req.body), { where: { id: req.params.id } })
-        .then((isUpdated) => {
-        if (isUpdated) {
+        .then((actualizado) => {
+        if (actualizado) {
             res.status(200).json({
-                status: "Success",
-                message: "User successfully updated",
+                status: "Éxito",
+                message: "Usuario actualizado exitosamente.",
                 payload: Object.assign({}, req.body),
             });
         }
         else {
             res.status(500).json({
-                status: "error",
-                message: "Something is wrong updating",
+                status: "Error",
+                message: "Algo salió mal al actualizar el usuario.",
                 payload: null,
             });
         }
     })
         .catch((err) => {
         res.status(500).json({
-            status: "error",
-            message: "Something is wrong updating" + err.message,
+            status: "Error",
+            message: "Algo salió mal al actualizar el usuario: " + err.message,
             payload: null,
         });
     });
 });
 exports.modifyUser = modifyUser;
-// Delete a Product with the specified id in the request
+// Eliminar a un usuario, especificando su ID.
 const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;
     try {
         yield user_1.User.destroy({ where: { id } });
-        res.status(200).json({ message: "User deleted" });
+        res.status(200).json({ message: "Usuario eliminado." });
     }
     catch (error) {
         res.status(500).json({
-            message: "Error deleting user",
+            message: "Hubo un error al eliminar el usuario.",
             error,
         });
     }

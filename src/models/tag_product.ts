@@ -1,24 +1,35 @@
-import {Table, Model, Column, CreatedAt, UpdatedAt, DataType, ForeignKey, BelongsTo} from 'sequelize-typescript';
-import {Optional} from 'sequelize';
-import {User} from './user'
+import { Table, Model, Column, CreatedAt, UpdatedAt, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
+import { Optional, Sequelize } from 'sequelize';
+import { Product } from './product'
+import { Tag } from './tag'
 
-interface ProductAttributes{
-  id: number;
-  title: string;
-  description: string;
-  price: number ;
-  stock: number ;
-  image: string; //guardara la direccion
+// Interfaz con las propiedades de Tag_Product.
+interface Tag_ProductAttributes {
+  id: number;  // ID de la relación del tag con el producto al que pertenece.
+  tagId: number;
+  productId: number;
 }
 
-interface ProductCreationAttributes extends Optional<ProductAttributes, 'id'>{}
+// El ID a ingresar es opcional.
+interface Tag_ProductCreationAttributes extends Optional<Tag_ProductAttributes, 'id'> { }
 
-@Table ({
+// Crear la tabla Tag_Product.
+@Table({
   tableName: "Tags_Products"
 })
-export class Product extends Model<ProductAttributes, ProductCreationAttributes>{
+export class Tag_Product extends Model<Tag_ProductAttributes, Tag_ProductCreationAttributes> {
 
-   //Relacion muchos a uno con User
-   @BelongsTo(()=>Tags)
-   user!: Tags;
-}
+  // LLave foránea tagID que pertenece a la tabla Tags.
+  @ForeignKey(() => Tag)
+  @Column
+  tagId!: number;
+  @BelongsTo(() => Tag)
+  tag!: Tag;
+
+  // LLave foránea productID que pertenece a la tabla Products.
+  @ForeignKey(() => Product)
+  @Column
+  productId!: number;
+  @BelongsTo(() => Product)
+  product!: Product;
+};
