@@ -9,55 +9,46 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Product = void 0;
+exports.User = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
-const user_1 = require("./user");
-let Product = class Product extends sequelize_typescript_1.Model {
+const product_1 = require("./product");
+let User = class User extends sequelize_typescript_1.Model {
 };
-exports.Product = Product;
+exports.User = User;
 __decorate([
     sequelize_typescript_1.Column,
     __metadata("design:type", String)
-], Product.prototype, "title", void 0);
-__decorate([
-    (0, sequelize_typescript_1.Column)({
-        type: sequelize_typescript_1.DataType.STRING
-    }),
-    __metadata("design:type", String)
-], Product.prototype, "description", void 0);
-__decorate([
-    sequelize_typescript_1.Column,
-    __metadata("design:type", Number)
-], Product.prototype, "price", void 0);
-__decorate([
-    sequelize_typescript_1.Column,
-    __metadata("design:type", Number)
-], Product.prototype, "stock", void 0);
+], User.prototype, "name", void 0);
 __decorate([
     sequelize_typescript_1.Column,
     __metadata("design:type", String)
-], Product.prototype, "image", void 0);
+], User.prototype, "email", void 0);
+__decorate([
+    sequelize_typescript_1.Column,
+    __metadata("design:type", String)
+], User.prototype, "password", void 0);
+__decorate([
+    sequelize_typescript_1.Column
+    //Podriamos agregar default a una ruta usando @Default("ruta/img algo nose")
+    ,
+    __metadata("design:type", String)
+], User.prototype, "profilePic", void 0);
 __decorate([
     sequelize_typescript_1.CreatedAt,
     sequelize_typescript_1.Column,
     __metadata("design:type", Date)
-], Product.prototype, "createdAt", void 0);
+], User.prototype, "createdAt", void 0);
 __decorate([
     sequelize_typescript_1.UpdatedAt,
     sequelize_typescript_1.Column,
     __metadata("design:type", Date)
-], Product.prototype, "updatedAt", void 0);
+], User.prototype, "updatedAt", void 0);
 __decorate([
-    (0, sequelize_typescript_1.ForeignKey)(() => user_1.User),
-    sequelize_typescript_1.Column,
-    __metadata("design:type", Number)
-], Product.prototype, "userId", void 0);
-__decorate([
-    (0, sequelize_typescript_1.BelongsTo)(() => user_1.User),
-    __metadata("design:type", user_1.User)
-], Product.prototype, "user", void 0);
-exports.Product = Product = __decorate([
+    (0, sequelize_typescript_1.HasMany)(() => product_1.Product),
+    __metadata("design:type", Array)
+], User.prototype, "products", void 0);
+exports.User = User = __decorate([
     (0, sequelize_typescript_1.Table)({
-        tableName: "Products"
+        tableName: "Users"
     })
-], Product);
+], User);

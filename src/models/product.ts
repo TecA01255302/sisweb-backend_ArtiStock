@@ -1,14 +1,14 @@
-import {Table, Model, Column, CreatedAt, UpdatedAt, DataType} from 'sequelize-typescript';
+import {Table, Model, Column, CreatedAt, UpdatedAt, DataType, ForeignKey, BelongsTo} from 'sequelize-typescript';
 import {Optional} from 'sequelize';
+import {User} from './user'
 
 interface ProductAttributes{
   id: number;
   title: string;
   description: string;
   price: number ;
-  discountPercentage: number ;
-  rating: number ;
   stock: number ;
+  image: string; //guardara la direccion
 }
 
 interface ProductCreationAttributes extends Optional<ProductAttributes, 'id'>{}
@@ -34,13 +34,10 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
    price!: number;
 
    @Column
-   discountPercentage!: number;
-
-   @Column
-   rating!: number;
-
-   @Column
    stock!: number;
+
+   @Column
+   image?: string;
 
    @CreatedAt
    @Column
@@ -49,4 +46,11 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
    @UpdatedAt
    @Column
    updatedAt!: Date;
+
+   //Relacion muchos a uno con User
+   @ForeignKey(()=> User)
+   @Column
+   userId!:number;
+   @BelongsTo(()=>User)
+   user!: User;
 }
