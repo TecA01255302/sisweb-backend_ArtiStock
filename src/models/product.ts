@@ -1,6 +1,7 @@
-import {Table, Model, Column, CreatedAt, UpdatedAt, DataType, ForeignKey, BelongsTo} from 'sequelize-typescript';
+import {Table, Model, Column, CreatedAt, UpdatedAt, DataType, ForeignKey, BelongsTo, HasMany} from 'sequelize-typescript';
 import {Optional} from 'sequelize';
 import {User} from './user'
+import { tag_product } from './tag_product';
 
 interface ProductAttributes{
   id: number;
@@ -53,4 +54,8 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
    userId!:number;
    @BelongsTo(()=>User)
    user!: User;
+
+   //relación de muchos a uno con tag_product
+    @HasMany(()=>tag_product)
+        products!:tag_product[];
 }

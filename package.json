@@ -1,7 +1,7 @@
 {
   "name": "sisweb-backend",
   "version": "1.0.0",
-  "description": "Prueba de ejemplo con Sasha",
+  "description": "Tarea de tienda en linea AriStock",
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
@@ -17,7 +17,7 @@
     "rest",
     "api"
   ],
-  "author": "Araceli",
+  "author": "Araceli Ruiz, Jonathan Medina, Sebastian Blanchet",
   "license": "ISC",
   "dependencies": {
     "express": "^4.21.2",
