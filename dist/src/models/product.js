@@ -11,12 +11,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Product = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
-<<<<<<< HEAD
 const user_1 = require("./user");
+const tag_1 = require("./tag");
 const tag_product_1 = require("./tag_product");
 // Crear la tabla Products.
-=======
->>>>>>> a9bca52fd14f199076c0976eaa1302b506490727
 let Product = class Product extends sequelize_typescript_1.Model {
 };
 exports.Product = Product;
@@ -37,23 +35,11 @@ __decorate([
 __decorate([
     sequelize_typescript_1.Column,
     __metadata("design:type", Number)
-<<<<<<< HEAD
 ], Product.prototype, "stock", void 0);
 __decorate([
     sequelize_typescript_1.Column,
     __metadata("design:type", String)
 ], Product.prototype, "image", void 0);
-=======
-], Product.prototype, "discountPercentage", void 0);
-__decorate([
-    sequelize_typescript_1.Column,
-    __metadata("design:type", Number)
-], Product.prototype, "rating", void 0);
-__decorate([
-    sequelize_typescript_1.Column,
-    __metadata("design:type", Number)
-], Product.prototype, "stock", void 0);
->>>>>>> a9bca52fd14f199076c0976eaa1302b506490727
 __decorate([
     sequelize_typescript_1.CreatedAt,
     sequelize_typescript_1.Column,
@@ -64,7 +50,6 @@ __decorate([
     sequelize_typescript_1.Column,
     __metadata("design:type", Date)
 ], Product.prototype, "updatedAt", void 0);
-<<<<<<< HEAD
 __decorate([
     (0, sequelize_typescript_1.ForeignKey)(() => user_1.User),
     sequelize_typescript_1.Column,
@@ -75,11 +60,9 @@ __decorate([
     __metadata("design:type", user_1.User)
 ], Product.prototype, "user", void 0);
 __decorate([
-    (0, sequelize_typescript_1.HasMany)(() => tag_product_1.Tag_Product),
+    (0, sequelize_typescript_1.BelongsToMany)(() => tag_1.Tag, () => tag_product_1.Tag_Product),
     __metadata("design:type", Array)
 ], Product.prototype, "products", void 0);
-=======
->>>>>>> a9bca52fd14f199076c0976eaa1302b506490727
 exports.Product = Product = __decorate([
     (0, sequelize_typescript_1.Table)({
         tableName: "Products"

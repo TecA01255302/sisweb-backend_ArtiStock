@@ -23,18 +23,10 @@ __decorate([
     __metadata("design:type", Number)
 ], Tag_Product.prototype, "tagId", void 0);
 __decorate([
-    (0, sequelize_typescript_1.BelongsTo)(() => tag_1.Tag),
-    __metadata("design:type", tag_1.Tag)
-], Tag_Product.prototype, "tag", void 0);
-__decorate([
     (0, sequelize_typescript_1.ForeignKey)(() => product_1.Product),
     sequelize_typescript_1.Column,
     __metadata("design:type", Number)
 ], Tag_Product.prototype, "productId", void 0);
-__decorate([
-    (0, sequelize_typescript_1.BelongsTo)(() => product_1.Product),
-    __metadata("design:type", product_1.Product)
-], Tag_Product.prototype, "product", void 0);
 exports.Tag_Product = Tag_Product = __decorate([
     (0, sequelize_typescript_1.Table)({
         tableName: "Tags_Products"

@@ -1,22 +1,7 @@
 {
   "name": "sisweb-backend",
   "version": "1.0.0",
-<<<<<<< HEAD
   "description": "Tarea de tienda en linea AriStock",
-=======
-  "description": "Online store",
-  "keywords": [
-    "nodejs",
-    "express",
-    "sequlize",
-    "mysql",
-    "rest",
-    "api"
-  ],
-  "license": "ISC",
-  "author": "Jonathan",
-  "type": "commonjs",
->>>>>>> a9bca52fd14f199076c0976eaa1302b506490727
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
@@ -24,7 +9,6 @@
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-<<<<<<< HEAD
   "keywords": [
     "nodejs",
     "express",
@@ -35,23 +19,10 @@
   ],
   "author": "Araceli Ruiz, Jonathan Medina, Sebastian Blanchet",
   "license": "ISC",
-  "dependencies": {
-    "express": "^4.21.2",
-    "mysql2": "^3.14.0",
-    "reflect-metadata": "^0.2.2",
-    "sequelize": "^6.37.7",
-    "sequelize-typescript": "^2.1.6"
-  },
   "devDependencies": {
     "@types/express": "^5.0.1",
     "@types/morgan": "^1.9.9",
     "@types/node": "^22.13.17",
-=======
-  "devDependencies": {
-    "@types/express": "^5.0.1",
-    "@types/morgan": "^1.9.9",
-    "@types/node": "^22.13.14",
->>>>>>> a9bca52fd14f199076c0976eaa1302b506490727
     "@types/validator": "^13.12.3",
     "concurrently": "^9.1.2",
     "morgan": "^1.10.0",
