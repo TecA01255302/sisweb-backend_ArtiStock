@@ -1,5 +1,6 @@
-import { Table, Model, Column, DataType, ForeignKey, HasMany } from 'sequelize-typescript';
+import { Table, Model, Column, DataType, ForeignKey, BelongsToMany, HasMany } from 'sequelize-typescript';
 import { Optional } from 'sequelize';
+import { Product } from './product';
 import { Tag_Product } from './tag_product'
 
 // Interfaz con las propiedades de la tabla Tags.
@@ -22,6 +23,6 @@ export class Tag extends Model<TagAttributes, TagCreationAttributes> {
   name!: string;
 
   //Relación de muchos a uno con Tag_Product
-  @HasMany(() => Tag_Product)
-  products!: Tag_Product[];
+  @BelongsToMany(()=> Product, () => Tag_Product)
+  tags!: Tag[];
 }

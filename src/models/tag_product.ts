@@ -23,13 +23,9 @@ export class Tag_Product extends Model<Tag_ProductAttributes, Tag_ProductCreatio
   @ForeignKey(() => Tag)
   @Column
   tagId!: number;
-  @BelongsTo(() => Tag)
-  tag!: Tag;
 
   // LLave foránea productID que pertenece a la tabla Products.
   @ForeignKey(() => Product)
   @Column
   productId!: number;
-  @BelongsTo(() => Product)
-  product!: Product;
 };
