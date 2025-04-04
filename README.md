@@ -1,8 +1,8 @@
-# sisweb-backend
+# ArtisStock-backend
 
-SISWEB Backend Project
+ArtisStock Backend
 Tech: :nodejs :express :sequelize :mysql
 
-## Description
+## Descripción
 
-CRUD example based in an e-commerce shop for diverse beauty and cleaning products.
+El backend de la aplicación de una tienda de cuadros de arte.
