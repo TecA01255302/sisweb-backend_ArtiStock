@@ -1,10 +1,10 @@
-import { Table, Model, Column, DataType, ForeignKey, BelongsToMany, HasMany } from 'sequelize-typescript';
+import { Table, Model, Column, BelongsToMany } from 'sequelize-typescript';
 import { Optional } from 'sequelize';
 import { Product } from './product';
 import { Tag_Product } from './tag_product'
 
 // Interfaz con las propiedades de la tabla Tags.
-interface TagAttributes {
+export interface TagAttributes {
   id: number;
   name: string;
 }
@@ -23,6 +23,11 @@ export class Tag extends Model<TagAttributes, TagCreationAttributes> {
   name!: string;
 
   //Relación de muchos a uno con Tag_Product
-  @BelongsToMany(()=> Product, () => Tag_Product)
-  tags!: Tag[];
+  //@BelongsToMany(()=> Product, () => Tag_Product)
+  //tags!: Tag[];
+
+  // Relación muchos a muchos con Product a través de Tag_Product.
+  @BelongsToMany(() => Product, () => Tag_Product)
+  products!: Product[];
+
 }
