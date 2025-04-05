@@ -3,7 +3,7 @@ import { Optional } from 'sequelize';
 import { Product } from './product'
 
 // Interfaz con las propiedades de la tabla Users.
-interface UserAttributes {
+export interface UserAttributes {
   id: number;
   name: string;
   email: string;

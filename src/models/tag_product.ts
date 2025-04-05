@@ -1,10 +1,10 @@
-import { Table, Model, Column, CreatedAt, UpdatedAt, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
-import { Optional, Sequelize } from 'sequelize';
+import { Table, Model, Column, ForeignKey } from 'sequelize-typescript';
+import { Optional } from 'sequelize';
 import { Product } from './product'
 import { Tag } from './tag'
 
 // Interfaz con las propiedades de Tag_Product.
-interface Tag_ProductAttributes {
+export interface Tag_ProductAttributes {
   id: number;  // ID de la relación del tag con el producto al que pertenece.
   tagId: number;
   productId: number;

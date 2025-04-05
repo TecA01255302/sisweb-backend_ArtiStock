@@ -1,17 +1,18 @@
-import {Table, Model, Column, CreatedAt, UpdatedAt, DataType, ForeignKey, BelongsTo, BelongsToMany, HasMany} from 'sequelize-typescript';
+import {Table, Model, Column, CreatedAt, UpdatedAt, DataType, ForeignKey, BelongsTo, BelongsToMany} from 'sequelize-typescript';
 import {Optional} from 'sequelize';
 import {User} from './user'
 import {Tag} from './tag'
 import { Tag_Product } from './tag_product';
 
 // Intefaz con las propiedades de la tabla Products.
-interface ProductAttributes{
+export interface ProductAttributes{
   id: number;
   title: string;
   description: string;
   price: number ;
   stock: number ;
   image: string; // Contiene la dirección de la imagen del producto.
+  userId: number; // ID del usuario que creó el producto.
 }
 
 // El ID es un valor opcional a ingresar.
@@ -58,6 +59,10 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
    user!: User;
 
    //Relación de muchos a uno con Tag_Product
-  @BelongsToMany(()=> Tag, () => Tag_Product)
-  products!: Product[];
+  //@BelongsToMany(()=> Tag, () => Tag_Product)
+  //products!: Product[];
+
+  @BelongsToMany(() => Tag, () => Tag_Product)
+  tags!: Tag[];
+
 }
