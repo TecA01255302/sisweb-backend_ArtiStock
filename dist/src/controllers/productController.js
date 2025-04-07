@@ -11,9 +11,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteProduct = exports.modifyProduct = exports.getProductById = exports.getAllProducts = exports.createProduct = void 0;
 const product_1 = require("../models/product");
+const user_1 = require("../models/user");
+const tag_1 = require("../models/tag");
 // Crear un nuevo producto.
 const createProduct = (req, res) => {
-    // Verificar que la solicitud sea válida.
     if (!req.body) {
         res.status(400).json({
             status: "Error",
@@ -22,20 +23,46 @@ const createProduct = (req, res) => {
         });
         return;
     }
-    //Guardar en db.
-    const product = Object.assign({}, req.body);
-    product_1.Product.create(product)
-        .then((data) => {
-        res.status(200).json({
-            status: "Éxito",
-            message: "Producto creado exitosamente.",
-            payload: data,
-        });
+    const { title, description, price, stock, image, userId, tags } = req.body;
+    product_1.Product.create({
+        title,
+        description,
+        price,
+        stock,
+        image,
+        userId,
+    })
+        .then((product) => {
+        if (tags && tags.length > 0) {
+            // Asociar los tags directamente por sus IDs
+            product.$set("tags", tags)
+                .then(() => {
+                res.status(201).json({
+                    status: "Éxito",
+                    message: "Producto creado y tags asociados exitosamente.",
+                    payload: product,
+                });
+            })
+                .catch((err) => {
+                res.status(500).json({
+                    status: "Error",
+                    message: "Error al asociar los tags: " + err.message,
+                    payload: null,
+                });
+            });
+        }
+        else {
+            res.status(201).json({
+                status: "Éxito",
+                message: "Producto creado exitosamente sin tags.",
+                payload: product,
+            });
+        }
     })
         .catch((err) => {
         res.status(500).json({
             status: "Error",
-            message: "Algo salió mal al crear el usuario: " + err.message,
+            message: "Algo salió mal al crear el producto: " + err.message,
             payload: null,
         });
     });
@@ -43,18 +70,32 @@ const createProduct = (req, res) => {
 exports.createProduct = createProduct;
 // Encontrar a todos los productos.
 const getAllProducts = (req, res) => {
-    product_1.Product.findAll()
+    product_1.Product.findAll({
+        include: [
+            {
+                model: user_1.User,
+                attributes: ["id", "name"], // Solo los atributos relevantes del usuario
+                required: false, // Permite productos sin usuario
+            },
+            {
+                model: tag_1.Tag,
+                attributes: ["id", "name"], // Solo los atributos relevantes de los tags
+                through: { attributes: [] }, // Excluye el modelo intermedio Tag_Product
+                required: false, // Permite productos sin tags
+            },
+        ],
+    })
         .then((data) => {
         res.status(200).json({
             status: "Éxito",
-            message: "Producto encontrado existosamente.",
+            message: "Productos encontrados exitosamente.",
             payload: data,
         });
     })
         .catch((err) => {
         res.status(500).json({
             status: "Error",
-            message: "Algo salió mal al buscar el producto: " + err.message,
+            message: "Algo salió mal al buscar los productos: " + err.message,
             payload: null,
         });
     });

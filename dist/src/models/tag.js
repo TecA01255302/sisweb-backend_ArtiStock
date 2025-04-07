@@ -24,7 +24,7 @@ __decorate([
 __decorate([
     (0, sequelize_typescript_1.BelongsToMany)(() => product_1.Product, () => tag_product_1.Tag_Product),
     __metadata("design:type", Array)
-], Tag.prototype, "tags", void 0);
+], Tag.prototype, "products", void 0);
 exports.Tag = Tag = __decorate([
     (0, sequelize_typescript_1.Table)({
         tableName: "Tags"
