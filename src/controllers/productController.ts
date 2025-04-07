@@ -14,8 +14,10 @@ export const createProduct: RequestHandler = (req: Request, res: Response) => {
     return;
   }
 
+  //Se destructura el body con todos los atributos del producto
   const { title, description, price, stock, image, userId, tags } = req.body;
 
+  //Crea el producto con la información obligatoria
   Product.create({
     title,
     description,
@@ -25,6 +27,7 @@ export const createProduct: RequestHandler = (req: Request, res: Response) => {
     userId,
   })
     .then((product: Product) => {
+      //Despues de que se cree existosamente el producto, revisa si hay un array tags con elementos dentro
       if (tags && tags.length > 0) {
         // Asociar los tags directamente por sus IDs
         product.$set("tags", tags)
@@ -50,6 +53,7 @@ export const createProduct: RequestHandler = (req: Request, res: Response) => {
         });
       }
     })
+    //Atrapa error al crear el producto
     .catch((err) => {
       res.status(500).json({
         status: "Error",

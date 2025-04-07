@@ -23,7 +23,9 @@ const createProduct = (req, res) => {
         });
         return;
     }
+    //Se destructura el body con todos los atributos del producto
     const { title, description, price, stock, image, userId, tags } = req.body;
+    //Crea el producto con la información obligatoria
     product_1.Product.create({
         title,
         description,
@@ -33,6 +35,7 @@ const createProduct = (req, res) => {
         userId,
     })
         .then((product) => {
+        //Despues de que se cree existosamente el producto, revisa si hay un array tags con elementos dentro
         if (tags && tags.length > 0) {
             // Asociar los tags directamente por sus IDs
             product.$set("tags", tags)
@@ -59,6 +62,7 @@ const createProduct = (req, res) => {
             });
         }
     })
+        //Atrapa error al crear el producto
         .catch((err) => {
         res.status(500).json({
             status: "Error",
