@@ -106,19 +106,59 @@ const getAllProducts = (req, res) => {
 };
 exports.getAllProducts = getAllProducts;
 // Encontrar a un producto por su ID.
+/*export const getProductById: RequestHandler = (req: Request, res: Response) => {
+  Product.findByPk(req.params.id)
+    .then((data: Product | null) => {
+      res.status(200).json({
+        status: "Éxito",
+        message: "Producto encontrado existosamente.",
+        payload: data,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        status: "Error",
+        message: "Algo salió al buscar el producto: " + err.message,
+        payload: null,
+      });
+    });
+};*/
 const getProductById = (req, res) => {
-    product_1.Product.findByPk(req.params.id)
+    product_1.Product.findByPk(req.params.id, {
+        include: [
+            {
+                model: user_1.User,
+                attributes: ["id", "name"],
+                required: false,
+            },
+            {
+                model: tag_1.Tag,
+                attributes: ["id", "name"],
+                through: { attributes: [] },
+                required: false,
+            },
+        ],
+    })
         .then((data) => {
-        res.status(200).json({
-            status: "Éxito",
-            message: "Producto encontrado existosamente.",
-            payload: data,
-        });
+        if (data) {
+            res.status(200).json({
+                status: "Éxito",
+                message: "Producto encontrado exitosamente.",
+                payload: data,
+            });
+        }
+        else {
+            res.status(404).json({
+                status: "Error",
+                message: "Producto no encontrado.",
+                payload: null,
+            });
+        }
     })
         .catch((err) => {
         res.status(500).json({
             status: "Error",
-            message: "Algo salió al buscar el producto: " + err.message,
+            message: "Algo salió mal al buscar el producto: " + err.message,
             payload: null,
         });
     });

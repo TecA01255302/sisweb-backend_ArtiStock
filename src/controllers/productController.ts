@@ -100,7 +100,7 @@ export const getAllProducts: RequestHandler = (req: Request, res: Response) => {
 
 
 // Encontrar a un producto por su ID.
-export const getProductById: RequestHandler = (req: Request, res: Response) => {
+/*export const getProductById: RequestHandler = (req: Request, res: Response) => {
   Product.findByPk(req.params.id)
     .then((data: Product | null) => {
       res.status(200).json({
@@ -113,6 +113,46 @@ export const getProductById: RequestHandler = (req: Request, res: Response) => {
       res.status(500).json({
         status: "Error",
         message: "Algo salió al buscar el producto: " + err.message,
+        payload: null,
+      });
+    });
+};*/
+
+export const getProductById: RequestHandler = (req: Request, res: Response) => {
+  Product.findByPk(req.params.id, {
+    include: [
+      {
+        model: User,
+        attributes: ["id", "name"],
+        required: false,
+      },
+      {
+        model: Tag,
+        attributes: ["id", "name"],
+        through: { attributes: [] },
+        required: false,
+      },
+    ],
+  })
+    .then((data: Product | null) => {
+      if (data) {
+        res.status(200).json({
+          status: "Éxito",
+          message: "Producto encontrado exitosamente.",
+          payload: data,
+        });
+      } else {
+        res.status(404).json({
+          status: "Error",
+          message: "Producto no encontrado.",
+          payload: null,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        status: "Error",
+        message: "Algo salió mal al buscar el producto: " + err.message,
         payload: null,
       });
     });
