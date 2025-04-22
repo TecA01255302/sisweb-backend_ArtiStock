@@ -216,3 +216,24 @@ export const deleteProduct: RequestHandler = async (
     });
   }
 };
+
+export const getAllProductsGraph: RequestHandler = (req: Request, res: Response) => {
+
+
+  Product.findAll({attributes:["id","title","price","stock"]})
+      .then((data: Product[]) => {
+          return res.status(200).json({
+              status: "success",
+              message: "Products successfully retrieved",
+              payload: data,
+          });
+      })
+      .catch((err) => {
+          return res.status(500).json({
+              status: "error",
+              message: "Something happened retrieving all products. " + err.message,
+              payload: null,
+          });
+      });
+};
+
