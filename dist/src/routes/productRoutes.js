@@ -10,6 +10,6 @@ productRouter.get('/graph', productController_1.getAllProductsGraph);
 productRouter.get('/:id', productController_1.getProductById);
 productRouter.post('/', productController_1.createProduct);
 productRouter.patch('/:id', productController_1.modifyProduct);
-productRouter.delete('/', productController_1.deleteProduct);
+productRouter.delete('/:id', productController_1.deleteProduct);
 // Exportar rutas de productos.
 exports.default = productRouter;
