@@ -165,7 +165,7 @@ export const deleteProduct: RequestHandler = async (
   req: Request,
   res: Response
 ) => {
-  const { id } = req.body;
+  const { id } = req.params;
   try {
     await Product.destroy({ where: { id } });
     res.status(200).json({ message: "Producto eliminado." });

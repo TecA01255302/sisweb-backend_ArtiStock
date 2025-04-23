@@ -2,10 +2,12 @@ import express, { Express, Request, Response } from "express";
 import apiRouter from './src/routes';
 import connectionDB from "./src/connection/connection";
 
+const cors = require("cors")
 const app: Express = express();
 const morgan = require('morgan');
 const port = 3000;
 
+app.use(cors({ origin: true }));
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(apiRouter);

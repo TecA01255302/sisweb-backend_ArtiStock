@@ -164,7 +164,7 @@ const modifyProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 exports.modifyProduct = modifyProduct;
 // Eliminar a un producto, especificando su ID.
 const deleteProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.body;
+    const { id } = req.params;
     try {
         yield product_1.Product.destroy({ where: { id } });
         res.status(200).json({ message: "Producto eliminado." });
