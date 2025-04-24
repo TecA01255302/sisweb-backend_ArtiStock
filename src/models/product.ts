@@ -55,7 +55,7 @@ export class Product extends Model<ProductAttributes, ProductCreationAttributes>
    @ForeignKey(()=> User)
    @Column
    userId!:number;
-   @BelongsTo(()=>User)
+   @BelongsTo(()=>User, {onDelete: 'CASCADE'})
    user!: User;
 
    //Relación de muchos a uno con Tag_Product

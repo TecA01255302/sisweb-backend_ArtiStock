@@ -56,7 +56,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Product.prototype, "userId", void 0);
 __decorate([
-    (0, sequelize_typescript_1.BelongsTo)(() => user_1.User),
+    (0, sequelize_typescript_1.BelongsTo)(() => user_1.User, { onDelete: 'CASCADE' }),
     __metadata("design:type", user_1.User)
 ], Product.prototype, "user", void 0);
 __decorate([
