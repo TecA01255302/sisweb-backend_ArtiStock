@@ -127,3 +127,23 @@ export const deleteUser: RequestHandler = async (
     });
   }
 };
+
+export const getAllUsersBasicInfo: RequestHandler = (req: Request, res: Response) => {
+
+
+  User.findAll({attributes:["id","name","profilePic"]})
+      .then((data: User[]) => {
+          return res.status(200).json({
+              status: "success",
+              message: "Products successfully retrieved",
+              payload: data,
+          });
+      })
+      .catch((err) => {
+          return res.status(500).json({
+              status: "error",
+              message: "Something happened retrieving all products. " + err.message,
+              payload: null,
+          });
+      });
+};

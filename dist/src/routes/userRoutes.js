@@ -6,6 +6,7 @@ const userController_1 = require("../controllers/userController");
 const userRouter = (0, express_1.Router)();
 // Operaciones CRUD con protocolos GET, POST, PATCH y DELETE.
 userRouter.get('/', userController_1.getAllUsers);
+userRouter.get('/basic', userController_1.getAllUsersBasicInfo);
 userRouter.get('/:id', userController_1.getUserById);
 userRouter.post('/', userController_1.createUser);
 userRouter.patch('/:id', userController_1.modifyUser);

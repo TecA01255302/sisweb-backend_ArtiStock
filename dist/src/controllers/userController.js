@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUser = exports.modifyUser = exports.getUserById = exports.getAllUsers = exports.createUser = void 0;
+exports.getAllUsersBasicInfo = exports.deleteUser = exports.modifyUser = exports.getUserById = exports.getAllUsers = exports.createUser = void 0;
 const user_1 = require("../models/user");
 // Crear un nuevo usuario.
 const createUser = (req, res) => {
@@ -132,3 +132,21 @@ const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.deleteUser = deleteUser;
+const getAllUsersBasicInfo = (req, res) => {
+    user_1.User.findAll({ attributes: ["id", "name", "profilePic"] })
+        .then((data) => {
+        return res.status(200).json({
+            status: "success",
+            message: "Products successfully retrieved",
+            payload: data,
+        });
+    })
+        .catch((err) => {
+        return res.status(500).json({
+            status: "error",
+            message: "Something happened retrieving all products. " + err.message,
+            payload: null,
+        });
+    });
+};
+exports.getAllUsersBasicInfo = getAllUsersBasicInfo;
