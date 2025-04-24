@@ -8,6 +8,7 @@ const userRouter = (0, express_1.Router)();
 userRouter.get('/', userController_1.getAllUsers);
 userRouter.get('/basic', userController_1.getAllUsersBasicInfo);
 userRouter.get('/:id', userController_1.getUserById);
+userRouter.get('/username/:id', userController_1.getUserNameById);
 userRouter.post('/', userController_1.createUser);
 userRouter.patch('/:id', userController_1.modifyUser);
 userRouter.delete('/:id', userController_1.deleteUser);

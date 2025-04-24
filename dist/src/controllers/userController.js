@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllUsersBasicInfo = exports.deleteUser = exports.modifyUser = exports.getUserById = exports.getAllUsers = exports.createUser = void 0;
+exports.getUserNameById = exports.getAllUsersBasicInfo = exports.deleteUser = exports.modifyUser = exports.getUserById = exports.getAllUsers = exports.createUser = void 0;
 const user_1 = require("../models/user");
 // Crear un nuevo usuario.
 const createUser = (req, res) => {
@@ -137,16 +137,35 @@ const getAllUsersBasicInfo = (req, res) => {
         .then((data) => {
         return res.status(200).json({
             status: "success",
-            message: "Products successfully retrieved",
+            message: "Usuarios encontrados.",
             payload: data,
         });
     })
         .catch((err) => {
         return res.status(500).json({
             status: "error",
-            message: "Something happened retrieving all products. " + err.message,
+            message: "Hubo un error al buscar los usuarios: " + err.message,
             payload: null,
         });
     });
 };
 exports.getAllUsersBasicInfo = getAllUsersBasicInfo;
+// Buscar el nombre de usuario por su ID.
+const getUserNameById = (req, res) => {
+    user_1.User.findOne({ where: { id: req.params.id }, attributes: ["name"] })
+        .then((data) => {
+        res.status(200).json({
+            status: "Éxito",
+            message: "Usuario encontrado existosamente.",
+            payload: data,
+        });
+    })
+        .catch((err) => {
+        res.status(500).json({
+            status: "Error",
+            message: "Algo salió al buscar el usuario: " + err.message,
+            payload: null,
+        });
+    });
+};
+exports.getUserNameById = getUserNameById;

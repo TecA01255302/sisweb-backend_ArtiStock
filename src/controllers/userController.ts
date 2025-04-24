@@ -135,16 +135,35 @@ export const getAllUsersBasicInfo: RequestHandler = (req: Request, res: Response
       .then((data: User[]) => {
           return res.status(200).json({
               status: "success",
-              message: "Products successfully retrieved",
+              message: "Usuarios encontrados.",
               payload: data,
           });
       })
       .catch((err) => {
           return res.status(500).json({
               status: "error",
-              message: "Something happened retrieving all products. " + err.message,
+              message: "Hubo un error al buscar los usuarios: " + err.message,
               payload: null,
           });
       });
 };
 
+// Buscar el nombre de usuario por su ID.
+export const getUserNameById: RequestHandler = (req: Request, res: Response) => {
+  
+  User.findOne({where: {id: req.params.id}, attributes: ["name"]})
+    .then((data: User | null) => {
+      res.status(200).json({
+        status: "Éxito",
+        message: "Usuario encontrado existosamente.",
+        payload: data,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        status: "Error",
+        message: "Algo salió al buscar el usuario: " + err.message,
+        payload: null,
+      });
+    });
+};
