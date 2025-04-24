@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllProductsGraph = exports.deleteProduct = exports.modifyProduct = exports.getProductById = exports.getAllProducts = exports.createProduct = void 0;
+exports.getProductsByUserId = exports.getAllProductsGraph = exports.deleteProduct = exports.modifyProduct = exports.getProductById = exports.getAllProducts = exports.createProduct = void 0;
 const product_1 = require("../models/product");
 const user_1 = require("../models/user");
 const tag_1 = require("../models/tag");
@@ -235,3 +235,21 @@ const getAllProductsGraph = (req, res) => {
     });
 };
 exports.getAllProductsGraph = getAllProductsGraph;
+const getProductsByUserId = (req, res) => {
+    product_1.Product.findAll({ where: { userId: req.params.userId } })
+        .then((data) => {
+        return res.status(200).json({
+            status: "success",
+            message: "Products successfully retrieved",
+            payload: data,
+        });
+    })
+        .catch((err) => {
+        return res.status(500).json({
+            status: "error",
+            message: "Something happened retrieving all products. " + err.message,
+            payload: null,
+        });
+    });
+};
+exports.getProductsByUserId = getProductsByUserId;

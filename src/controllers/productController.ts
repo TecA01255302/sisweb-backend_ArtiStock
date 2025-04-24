@@ -237,3 +237,23 @@ export const getAllProductsGraph: RequestHandler = (req: Request, res: Response)
       });
 };
 
+export const getProductsByUserId: RequestHandler = (req: Request, res: Response) => {
+
+
+  Product.findAll({ where: { userId: req.params.userId }})
+      .then((data: Product[]) => {
+          return res.status(200).json({
+              status: "success",
+              message: "Products successfully retrieved",
+              payload: data,
+          });
+      })
+      .catch((err) => {
+          return res.status(500).json({
+              status: "error",
+              message: "Something happened retrieving all products. " + err.message,
+              payload: null,
+          });
+      });
+};
+

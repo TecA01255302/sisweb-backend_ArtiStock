@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express'; 
 import{createProduct,deleteProduct,getAllProducts,
-    getProductById,modifyProduct,getAllProductsGraph
+    getProductById,modifyProduct,getAllProductsGraph,
+    getProductsByUserId
 }from '../controllers/productController';
 // Crear ruta de productos. 
 const productRouter:Router = Router(); 
@@ -8,6 +9,7 @@ const productRouter:Router = Router();
 // Operaciones CRUD con protocolos GET, POST, PATCH y DELETE.
 productRouter.get('/', getAllProducts); 
 productRouter.get('/graph', getAllProductsGraph); 
+productRouter.get('/userId/:userId', getProductsByUserId); 
 productRouter.get('/:id', getProductById); 
 productRouter.post('/', createProduct); 
 productRouter.patch('/:id', modifyProduct); 
