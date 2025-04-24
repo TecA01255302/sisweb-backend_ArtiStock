@@ -13,7 +13,7 @@ userRouter.get('/basic', getAllUsersBasicInfo);
 userRouter.get('/:id', getUserById); 
 userRouter.post('/', createUser); 
 userRouter.patch('/:id', modifyUser); 
-userRouter.delete('/', deleteUser); 
+userRouter.delete('/:id', deleteUser); 
 
 // Exportar rutas de usuarios.
 export default userRouter;

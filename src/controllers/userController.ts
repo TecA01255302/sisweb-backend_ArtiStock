@@ -116,7 +116,7 @@ export const deleteUser: RequestHandler = async (
   req: Request,
   res: Response
 ) => {
-  const { id } = req.body;
+  const { id } = req.params;
   try {
     await User.destroy({ where: { id } });
     res.status(200).json({ message: "Usuario eliminado." });
@@ -147,3 +147,4 @@ export const getAllUsersBasicInfo: RequestHandler = (req: Request, res: Response
           });
       });
 };
+

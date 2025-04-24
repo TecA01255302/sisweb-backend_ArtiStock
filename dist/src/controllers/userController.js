@@ -119,7 +119,7 @@ const modifyUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.modifyUser = modifyUser;
 // Eliminar a un usuario, especificando su ID.
 const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.body;
+    const { id } = req.params;
     try {
         yield user_1.User.destroy({ where: { id } });
         res.status(200).json({ message: "Usuario eliminado." });

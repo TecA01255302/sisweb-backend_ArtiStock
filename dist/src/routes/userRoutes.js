@@ -10,6 +10,6 @@ userRouter.get('/basic', userController_1.getAllUsersBasicInfo);
 userRouter.get('/:id', userController_1.getUserById);
 userRouter.post('/', userController_1.createUser);
 userRouter.patch('/:id', userController_1.modifyUser);
-userRouter.delete('/', userController_1.deleteUser);
+userRouter.delete('/:id', userController_1.deleteUser);
 // Exportar rutas de usuarios.
 exports.default = userRouter;
